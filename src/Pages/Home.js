@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import DrugLinks from "../Components/DrugLinks.js";
-import styles from "./Home.module.less";
+import styles from "./Home.module.css";
 import girl from "../Img/Home/girl.png";
 import calendar from "../Img/Home/calendar.png";
 
@@ -76,12 +76,12 @@ class Home extends Component {
                 <img className={styles.decoImg} style={{ top: 0 }} src={girl} alt="girl"></img>
             </div>
 
-            <div className={[styles.blockbar, styles.input]} style={{marginBottom: "1vh", borderRadius: "10px"}}>
+            <div className={`${styles.blockbar} ${styles.input}`} style={{marginBottom: "1vh", borderRadius: "10px"}}>
                 <p>Write your reminder logic here</p>
             </div>
 
             <input
-                className={[styles.blockbar, styles.input]}
+                className={`${styles.blockbar} ${styles.input}`}
                 type="text"
                 placeholder="&#8981; Name/Indications/Ingredient"
                 value={searchTerm}

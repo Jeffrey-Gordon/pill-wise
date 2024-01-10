@@ -69,7 +69,7 @@ class Login extends Component {
                 </div>
 
                 <input
-                    className={[styles.blockbar, styles.input]}
+                    className={`${styles.blockbar} ${styles.input}`}
                     type="text"
                     placeholder="&#128231; Email / Username"
                     value={username}
@@ -77,7 +77,7 @@ class Login extends Component {
                 />
                 <br />
                 <input
-                    className={[styles.blockbar, styles.input]}
+                    className={`${styles.blockbar} ${styles.input}`}
                     type="password"
                     placeholder="&#128273; Enter Password"
                     value={password}
@@ -86,7 +86,7 @@ class Login extends Component {
                 <br />
                 <button 
                     type="button" 
-                    className={[styles.blockbar, styles.button]} 
+                    className={`${styles.blockbar} ${styles.button}`} 
                     onClick={this.handleLogin}>Login
                 </button>
                 {error && <p style={{ textAlign: 'center' }}>{error}</p>}

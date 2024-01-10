@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import styles from "./Clock.module.less";
+import styles from "./Clock.module.css";
 
 import icon_menu from "../Img/Clock/icon_menu.svg";
 import clock from "../Img/Clock/clock.svg";
@@ -58,16 +58,17 @@ const Clock = () => {
         <Link to="/"> 
           <img className={styles.menu} src={icon_menu} width="22.8px" height="9.5px" alt="return" />
         </Link>
-        <h1>Clock</h1>
+        <h1 className={styles.h1}>Clock</h1>
       </div>
       <div className={styles.card}>
         <img className={styles.apill} src={drugData.Image} width="119px" height="150px" alt=""/>
       </div>
       <div className={styles.content}>
-        <h3>Time</h3>
+        <h3 className={styles.h3}>Time</h3>
         <div className={styles.time}>
           <img width="34px" height="34px" src={clock} alt="" />
           <input
+            className={styles.input}
             type="datetime"
             name=""
             id=""
@@ -76,6 +77,7 @@ const Clock = () => {
           />
           <span>:</span>
           <input
+            className={styles.input}
             type="datetime"
             name=""
             id=""
@@ -84,7 +86,7 @@ const Clock = () => {
           />
           <span>p.m</span>
         </div>
-        <h3>Num</h3>
+        <h3 className={styles.h3}>Num</h3>
         <div className={styles.time}>
           <img
             width="35px"
@@ -102,8 +104,8 @@ const Clock = () => {
             onClick={handleNumIncrement}
           />
         </div>
-        <h3>Frequency</h3>
-        <div className={[styles.time, styles.fre]}>
+        <h3 className={styles.h3}>Frequency</h3>
+        <div className={`${styles.time} ${styles.fre}`}>
           <Dropdown
             options={options}
             selectedOption={selectedOption}
@@ -111,7 +113,7 @@ const Clock = () => {
           />
         </div>
       </div>
-      <button onClick={handleAddButtonClick}>Add</button>
+      <button className={styles.button} onClick={handleAddButtonClick}>Add</button>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const Dropdown = ({ options, selectedOption, setSelectedOption }) => {
   return (
     <div className={styles.dropdownmenu}>
       {/* Displays the currently selected options */}
-      <span>{selectedOption ? selectedOption : "Select an option"}</span>
+      <span className={styles.span}>{selectedOption ? selectedOption : "Select an option"}</span>
       {/* The drop-down arrow icon, click to switch the drop-down menu display status */}
       <img
         src={select}

@@ -477,7 +477,7 @@ module.exports = function (webpackEnv) {
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
                 modules: {
-                  mode: 'icss',
+                  mode: 'true',
                 },
               }),
               // Don't consider CSS imports dead code even if the
@@ -496,7 +496,7 @@ module.exports = function (webpackEnv) {
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
                 modules: {
-                  mode: 'local',
+                  mode: 'true',
                   getLocalIdent: getCSSModuleLocalIdent,
                 },
               }),

@@ -1,4 +1,4 @@
-.Clock {
+.App {
   font-family: sans-serif;
   padding: 0;
   margin: 0;
@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
 }
-h1 {
+.h1 {
   margin: 0 auto;
   font-weight: normal;
 }
@@ -16,54 +16,61 @@ h1 {
   margin-left: 10px;
 }
 
-.card {
+.App .card {
   position: relative;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   margin: 0 auto;
   background-color: #ecf0f3;
-  width: 175px;
-  height: 172px;
+  width: 300px;
+  height: 288px;
   border-radius: 10px;
   box-shadow: 60px 60px 60px 0 rgba(138, 167, 184, 0.3);
   box-shadow: 30px 30px 30px 0 rgba(138, 167, 184, 0.25);
 }
-.apill {
+.card .apill {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-h3 {
-  margin-left: 10px;
-  font-weight: normal;
+.line {
+  margin: 20px 10px 10px;
+  border-bottom: #007cee 5px solid;
+  width: 240px;
 }
-
-.content .time {
+.h2 {
+  margin-top: 310px;
+  margin-bottom: 0;
+}
+.content .nn {
+  text-align: left;
+  color: #007cee;
+  margin: 0;
+  margin-left: 5px;
+}
+.tags {
+  margin-left: 5px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  color: #333333;
-  border-bottom: 1px solid rgba(153, 153, 153, 0.2);
-  padding-bottom: 10px;
-  margin: 0 auto;
 }
-.fre {
-  border: none;
-}
-input {
-  width: 55px;
-  height: 64px;
-  background-color: #ecf0f3;
-  border: none;
-  border-radius: 10px;
-  font-size: 34px;
-  color: #333333;
+.tag {
+  margin: 15px 5px;
+  height: 28px;
+  color: #fff;
   text-align: center;
+  line-height: 28px;
+  border-radius: 9px;
+  background-color: rgba(90, 224, 191, 0.7);
 }
-.n {
-  font-size: 34px;
+.p {
+  color: #bfbfbf;
+  margin: 0 10px;
 }
-button {
+
+.button {
   background-color: #007cee;
   border: none;
   border-radius: 12px;
