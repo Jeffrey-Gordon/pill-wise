@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import DrugLinks from "../Components/DrugLinks.js";
-import "../styles.css";
+import styles from "./Home.module.less";
 import girl from "../Img/Home/girl.png";
 import calendar from "../Img/Home/calendar.png";
 
@@ -47,8 +47,8 @@ class Home extends Component {
         const username = location.state ? location.state.username : null;
 
         return (
-        <div className="main-container">
-            <div className="button-container" style={{ marginTop: "10%" }}>
+        <div className={styles.maincontainer}>
+            <div className={styles.buttoncontainer} style={{ marginTop: "10%" }}>
             {username ? (
                 <button><Link to="/calendar"><img src={calendar} alt="calendar"></img></Link></button>
             ) : (
@@ -68,20 +68,20 @@ class Home extends Component {
             )}
             </div>
 
-            <div className="container" style={{ marginTop: "0vh", height: "15vh" }}>
-                <title className="titles">
+            <div className={styles.container} style={{ marginTop: "0vh", height: "15vh" }}>
+                <title className={styles.titles}>
                     <h2>Welcome</h2>
                     <h2>{username && <p>{username}</p>}</h2>
                 </title>
-                <img className="decoImg" style={{ top: 0 }} src={girl} alt="girl"></img>
+                <img className={styles.decoImg} style={{ top: 0 }} src={girl} alt="girl"></img>
             </div>
 
-            <div className="blockbar, input" style={{marginBottom: "1vh", borderRadius: "10px"}}>
+            <div className={[styles.blockbar, styles.input]} style={{marginBottom: "1vh", borderRadius: "10px"}}>
                 <p>Write your reminder logic here</p>
             </div>
 
             <input
-                className="blockbar input"
+                className={[styles.blockbar, styles.input]}
                 type="text"
                 placeholder="&#8981; Name/Indications/Ingredient"
                 value={searchTerm}
@@ -93,7 +93,7 @@ class Home extends Component {
                     <button
                         key={index}
                         onClick={() => this.handleButtonClick(index)}
-                        className="popular-searches"
+                        className={styles.popularsearches}
                         style={{
                             margin: "1vw",
                             backgroundColor: activeButtonIndex === index ? "#007cee" : "initial",

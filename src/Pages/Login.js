@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter, Link} from "react-router-dom";
-import "../styles.css";
+import styles from "./Login.module.css";
 import doctor from "../Img/Login/doctor.png";
 import Google from "../Img/Login/Google.png";
 import Apple from "../Img/Login/Apple.png";
@@ -59,17 +59,17 @@ class Login extends Component {
         const { username, password, error } = this.state;
 
         return (
-            <div className="main-container">
-                <div className="container">
-                    <div className="titles">
+            <div className={styles.maincontainer}>
+                <div className={styles.container}>
+                    <div className={styles.titles}>
                         <h2>Login to your</h2>
                         <h2>Account</h2>
                     </div>
-                    <img className="decoImg" src={doctor} alt="docter"></img>
+                    <img className={styles.decoImg} src={doctor} alt="docter"></img>
                 </div>
 
                 <input
-                    className="blockbar input"
+                    className={[styles.blockbar, styles.input]}
                     type="text"
                     placeholder="&#128231; Email / Username"
                     value={username}
@@ -77,7 +77,7 @@ class Login extends Component {
                 />
                 <br />
                 <input
-                    className="blockbar input"
+                    className={[styles.blockbar, styles.input]}
                     type="password"
                     placeholder="&#128273; Enter Password"
                     value={password}
@@ -86,13 +86,13 @@ class Login extends Component {
                 <br />
                 <button 
                     type="button" 
-                    className="blockbar button" 
+                    className={[styles.blockbar, styles.button]} 
                     onClick={this.handleLogin}>Login
                 </button>
                 {error && <p style={{ textAlign: 'center' }}>{error}</p>}
 
                 <p style={{ textAlign: 'center', marginTop: "10vw"}}>Sign in with</p>
-                <div class="button-container">
+                <div className={styles.buttoncontainer}>
                     <button ><img src={Google} alt="Google"></img></button>
                     <button><img src={Apple} alt="Apple"></img></button>
                     <button><img src={Facebook} alt="Facebook"></img></button>

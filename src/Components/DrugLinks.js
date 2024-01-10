@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./DrugLinks.css";
+import styles from "./DrugLinks.module.css";
 
 const DrugLinks = ({ drugs }) => {
     const renderContraindications = (Indications) => {
@@ -14,7 +14,7 @@ const DrugLinks = ({ drugs }) => {
     };
 
     return (
-        <div className="DrugLinks">
+        <div className={styles.DrugLinks}>
             {drugs.map((drug) => (
             <Link
                 to={{
@@ -22,11 +22,11 @@ const DrugLinks = ({ drugs }) => {
                 state: { drug },
                 }}
                 key={drug.ID}
-                className="DrugLink"
+                className={styles.DrugLink}
             >
-            <img src={drug.Image} alt={drug.DrugName} />
-            <h3>{drug.DrugName}</h3>
-            {renderContraindications(drug.Indications)}
+                <img src={drug.Image} alt={drug.DrugName} />
+                <h3>{drug.DrugName}</h3>
+                {renderContraindications(drug.Indications)}
             </Link>
             ))}
         </div>

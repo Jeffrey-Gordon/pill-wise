@@ -5,6 +5,7 @@ import Home from "./Pages/Home.js";
 import Example from "./Pages/Example.js";
 import DrugDetails from "./Pages/DrugDetails.js";
 import Calendar from "./Pages/Calendar.js"
+import Clock from "./Pages/Clock.js";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route path="/example" component={Example} />
             <Route path="/drug/:id" component={DrugDetails} />
             <Route path="/calendar" component={Calendar} />
+            <Route path="/clock" component={Clock} />
           </Switch>
         </div>
       </BrowserRouter>
