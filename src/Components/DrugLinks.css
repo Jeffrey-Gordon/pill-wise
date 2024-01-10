@@ -1,0 +1,88 @@
+.DrugLinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(32%, 32vw));
+  column-gap: 6vw;
+  row-gap: 5vw;
+  margin-top: 5vw;
+}
+
+.DrugLink img {
+  max-width: 27vw;
+  max-height: 27vw;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 600px) {
+  .DrugLinks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(126px, 126px));
+    column-gap: 0px;
+    justify-content: space-between;
+    row-gap: 5vw;
+    margin-top: 5vw;
+  }
+
+  .DrugLink img {
+    max-width: 126px;
+    max-height: 126px;
+    object-fit: cover;
+  }
+  
+  .DrugLink h3 {
+    max-width: 126px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  .DrugLink p {
+    margin-left:auto;
+    color: white;
+    font-size: 10px;
+    margin: 0;
+    max-width: 126px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.DrugLink {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: black;
+  border: 1px solid #F7F8FA;
+  background-color: #F7F8FA;
+  border-radius: 10px;
+  align-items: center;
+}
+
+
+.DrugLink h3 {
+  max-width: 27vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.DrugLink p {
+  margin-left:auto;
+  color: white;
+  font-size: 10px;
+  margin: 0;
+  max-width: 27vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.DrugLink span {
+  background-color: #5AE0BF;
+  border-radius: 5px;
+}
+
