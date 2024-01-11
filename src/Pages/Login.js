@@ -62,8 +62,7 @@ class Login extends Component {
             <div className={styles.maincontainer}>
                 <div className={styles.container}>
                     <div className={styles.titles}>
-                        <h2>Login to your</h2>
-                        <h2>Account</h2>
+                        <h2>Login to your Account</h2>
                     </div>
                     <img className={styles.decoImg} src={doctor} alt="docter"></img>
                 </div>

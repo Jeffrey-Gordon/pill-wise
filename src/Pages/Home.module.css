@@ -24,11 +24,10 @@
 
 .titles{
   position: absolute;
-  top: 10%;
-  font-weight: bold;
+  font-size: 2vh;
   display: inline-block;
   vertical-align:super;
-  max-width: 70%;
+  max-width: 100%;
 }
 
 .blockbar{

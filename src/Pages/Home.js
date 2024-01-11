@@ -77,7 +77,7 @@ class Home extends Component {
             </div>
 
             <div className={`${styles.blockbar} ${styles.input}`} style={{marginBottom: "1vh", borderRadius: "10px"}}>
-                <p>Write your reminder logic here</p>
+                <p style={{fontSize: "2vh"}}>Write your reminder logic here</p>
             </div>
 
             <input
