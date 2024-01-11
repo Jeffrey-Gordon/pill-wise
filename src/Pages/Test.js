@@ -1,17 +1,18 @@
-import { toBeRequired } from "@testing-library/jest-dom/matchers";
 import React, { useState, useEffect } from "react";
-import { isDOMComponent } from "react-dom/test-utils";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-// Importing images using require
+// import Drug_1 from './image/drug-1.png';
+// import Drug_2 from './image/drug-2.png';
+// import Drug_3 from './image/drug-3.png';
+// import Drug_4 from './image/drug-4.png';
 const Drug_1 = require("../Img/Calendar/drug-1.png");
 const Drug_2 = require("../Img/Calendar/drug-2.png");
 const Drug_3 = require("../Img/Calendar/drug-3.png");
 const Drug_4 = require("../Img/Calendar/drug-4.png");
 
 const Delete = require("../Img/Calendar/delete.png");
-const DONE = require("../Img/Calendar/done.png");
+const Done = require("../Img/Calendar/done.png");
 const NOT_DONE = require("../Img/Calendar/not-done.png");
-// Styled component for drug container
 const DrugContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -132,6 +133,24 @@ const DrugContainer = styled.div`
           background-color: #007cee;
           border-radius: 50%;
         }
+        .timeline {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          min-height: 6rem;
+          margin-right: 0.8rem;
+          .time {
+            color: #007cee;
+            font-size: 0.9rem;
+            padding: 0.3rem 0rem;
+            font-weight: 600;
+          }
+          .vertical-line {
+            flex: 1;
+            width: 2px;
+            background-color: #007cee;
+          }
+        }
         .detail-list {
           display: flex;
           flex-direction: column;
@@ -177,8 +196,6 @@ const DrugContainer = styled.div`
                 cursor: pointer;
               }
             }
-          
-          }
             .delete {
               position: absolute;
               right: 0.5rem;
@@ -196,11 +213,9 @@ const DrugContainer = styled.div`
     }
   }
 `;
-// Calendar component
-const Calendar = (props) => {  
-    // State variables using useState hook
-  const [items, setItems] = useState(props.location.state.items);
 
+const Test = (props) => {
+  const items = props.location.state?.items || [];
   const [curDate, setCurDate] = useState("4");
   const [date, setDate] = useState([
     { week: "Sun", day: "1" },
@@ -227,141 +242,41 @@ const Calendar = (props) => {
     3: Drug_3,
   };
 
-
   const [isManage, setIsManage] = useState(false);
-  const [isDone, setIsDone] = useState(true);
+
   const allData = {
-    3: [
-      {
-        startTime: "08:00",
-        endTime: "09:00",
-        item: [
-          {
-            drugName: "Ashwagandha",
-            done: true,
-            capsule: "450 mg 1 capsule",
-            time: "8：30 am",
-            id: 1,
-            num: 1,
-            hour: 8,
-            minute: 30,
-          },
-        ],
-      },
-      
-    ],
-    4: [
-      {
-        startTime: "18:00",
-        endTime: "19:00",
-        item: [
-          {
-            drugName: "Ashwagandha",
-            done: true,
-            capsule: "450 mg 1 capsule",
-            time: "18：30 am",
-            id: 6,
-            num: 6,
-            hour: 18,
-            minute: 30,
-          },
-        ],
-      },
-    ],
+    4: items.map((item) => ({
+      item: [
+        {
+          drugName: item.drugName,
+          done: item.done,
+          capsule: item.capsule,
+          id: item.id,
+          hour: item.hour,
+          minute: item.minute,
+        },
+      ],
+    })),
   };
-  // Sample data for detail
+
   const [detail, setDetail] = useState([
-    {
-      startTime: "08:00",
-      endTime: "09:00",
-      item: [
-        {
-          drugName: "Ashwagandha",
-          done: true,
-          capsule: "450 mg 1 capsule",
-          time: "8：30 am",
-          id: 1,
-          num: 1,
-          hour: 8,
-          minute: 30,
-        },
-      ],
-    },
-    {
-      startTime: "12:00",
-      endTime: "13:00",
-      item: [
-        {
-          drugName: "Ashwagandha",
-          done: true,
-          capsule: "450 mg 1 capsule",
-          time: "12：30 pm",
-          id: 2,
-          num: 2,
-          hour: 12,
-          minute: 30,
-        },
-        {
-          drugName: "Ashwagandha",
-          done: true,
-          capsule: "450 mg 1 capsule",
-          time: "18：30 pm",
-          id: 3,
-          num: 3,
-          hour: 18,
-          minute: 30,
-        },
-      ],
-    },
-    {
-      startTime: "15:00",
-      endTime: "18:00",
-      item: [
-        {
-          drugName: "Ashwagandha",
-          done: false,
-          capsule: "450 mg 1 capsule",
-          time: "18：30 am",
-          id: 4,
-          num: 4,
-          hour: 18,
-          minute: 30,
-        },
-      ],
-    },
+    
   ]);
-// useEffect hook to update detail based on curDate
- // Update detail based on curDate
+
   useEffect(() => {
     setDetail(allData[curDate] ?? []);
   }, [curDate]);
-// Handler to delete an item from detail
+
   const handleDelete = (id) => {
-     // Logic to delete an item based on id
-    let newDetail = detail.map((timeSlot) => ({
-      ...timeSlot,
-      item: timeSlot.item.filter((drug) => drug.id !== id),
-    })).filter((timeSlot) => timeSlot.item.length > 0);
-  
+    let newDetail = detail.filter((timeSlot) => {
+      timeSlot.item = timeSlot.item.filter((drug) => drug.id !== id);
+      return timeSlot.item.length > 0;
+    });
     setDetail(newDetail);
   };
-// Handler to toggle the done state
-  const handleDone = () => {
-      setIsDone(!isDone);
-  }
-  
-  // const handleDelete = (id) => {
-  //   let newDetail = detail.filter((timeSlot) => {
-  //     timeSlot.item = timeSlot.item.filter((drug) => drug.id !== id);
-  //     return timeSlot.item.length > 0;
-  //   });
-  //   setDetail(newDetail);
-  // };
-  
-  
+
   return (
     <DrugContainer>
-        {/* Render the calendar and details */}
       <div className="title">Calendar</div>
       <div className="calendar-list">
         <div className="calendar">
@@ -381,7 +296,7 @@ const Calendar = (props) => {
           })}
         </div>
       </div>
-  {/* Render the manage button */}
+
       <div className="other">
         <div className="title">Today</div>
         {!isManage ? (
@@ -397,71 +312,71 @@ const Calendar = (props) => {
             Cancel
           </span>
         )}
-  
-        
       </div>
       <div className="detail">
         <div className="list">
-          {/* {detail.map(({ startTime, endTime, item }, index) => { */}
-
-              <div className="item">
-                {/* <div className="timeline">
-                  <div className="time">{startTime}</div>
+          {detail.map(({ startTime, endTime, item }, index) => {
+            return (
+              <div className="item" key={`${endTime}-${index}-${index}`}>
+                <div className="timeline">
+                  {/* <div className="time">{startTime}</div> */}
                   <div className="vertical-line"></div>
-                  <div className="time">{endTime}</div>
-                </div> */}
-                  {/* Render the detail-list*/}
+                  {/* <div className="time">{endTime}</div> */}
+                </div>
                 <div className="detail-list">
-                  {items.map(
-                    (item, index) => {
+                  {item.map(
+                    ({ drugName, hour, minute, done, capsule, id }, index) => {
                       return (
                         <div
                           className="detail-content"
-                          key={item.id}
+                          key={`${id}-${index}-${index}`}
                         >
                           <div className="detail">
-                            <img
+                            <div
                               className="picture"
-                              src={item.image}
-                            ></img>
+                              style={{
+                                backgroundImage: `url('${picObj[id % 4]}')`,
+                              }}
+                            ></div>
                             <div className="desc">
-                              <div className="drugName">{item.drugName}</div>
-                              <div className="capsule">{item.capsule}</div>
-                              <div className="time">{item.hour + ":" + item.minute+" "+item.isAM}</div>
+                              <div className="drugName">{drugName}</div>
+                              <div className="capsule">{capsule}</div>
+                              <div className="time">{hour + ":" + minute}</div>
                             </div>
                             <div
-          className="done"
-          onClick={handleDone}
-          style={{
-            backgroundImage: `url('${isDone ? DONE : NOT_DONE}')`,
-          }}
-        ></div>
-
-
-
+                              className="done"
+                              style={{
+                                backgroundImage: `url('${
+                                  done ? Done : NOT_DONE
+                                }')`,
+                              }}
+                            ></div>
                           </div>
-                            {/* Render the delete function */}
                           <div
                             className="delete"
                             onClick={() => {
-                              handleDelete(item.id);
+                              handleDelete(id);
                             }}
                             style={{
                               backgroundImage: `url('${Delete}')`,
                               display: isManage ? "block" : "none",
                             }}
                           ></div>
-                 
                         </div>
                       );
                     }
                   )}
                 </div>
               </div>
+            );
+          })}
         </div>
       </div>
+      <Link to="/" style={{marginBottom: "5vh"}}>
+        Back to Home
+      </Link>
     </DrugContainer>
   );
 };
 
-export default Calendar;
+export default Test;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Clock.module.css";
-
+import { useHistory } from 'react-router-dom';
 import icon_menu from "../Img/Clock/icon_menu.svg";
 import clock from "../Img/Clock/clock.svg";
 import add from "../Img/Clock/add.svg";
@@ -21,13 +21,22 @@ const Clock = () => {
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [num, setNum] = useState(3);
+  const [done, setDone] = useState(false);
   // const [frequency, setFrequency] = useState(options[0]);
+  const [items, setItems] = useState([]);
+  const [isAM, setIsAM] = useState(true);
 
   const handleHourChange = (e) => {
-    setHour(e.target.value);
+    const inputValue = e.target.value;
+    if (/^[0-9]*$/.test(inputValue) && inputValue >= 0 && inputValue < 12) {
+      setHour(inputValue);
+    }
   };
   const handleMinuteChange = (e) => {
-    setMinute(e.target.value);
+    const inputValue = e.target.value;
+    if (/^[0-9]*$/.test(inputValue) && inputValue >= 0 && inputValue < 60) {
+      setMinute(inputValue);
+    }
   };
 
   const handleNumDecrement = () => {
@@ -38,15 +47,32 @@ const Clock = () => {
     setNum(num + 1);
   };
 
+  const handleAM = () => {
+    setIsAM(!isAM);
+  }
+
+  const history = useHistory();
 // Handle the click event of adding the alarm button
   const handleAddButtonClick = () => {
     const newItem = {
+      id: drugData.ID,
+      drugName: drugData.DrugName,
+      image: drugData.Image,
       hour: hour,
       minute: minute,
       num: num,
-      // frequency: frequency,
+      done: done,
+      isAM: isAM ? "a.m" : "p.m",
       capsule: selectedOption,
+      day: 4
     };
+
+    setItems([...items, newItem]);
+    history.push({
+      pathname: '/test',
+      state: { items: [...items, newItem] }
+    });
+
     // Clear the contents of the input box
     setHour("");
     setMinute("");
@@ -74,6 +100,7 @@ const Clock = () => {
             id=""
             value={hour}
             onChange={handleHourChange}
+            maxLength={2}
           />
           <span>:</span>
           <input
@@ -83,8 +110,9 @@ const Clock = () => {
             id=""
             value={minute}
             onChange={handleMinuteChange}
+            maxLength={2}
           />
-          <span>p.m</span>
+          <span onClick={handleAM}>{isAM ? "a.m" : "p.m"}</span>
         </div>
         <h3 className={styles.h3}>Num</h3>
         <div className={styles.time}>
