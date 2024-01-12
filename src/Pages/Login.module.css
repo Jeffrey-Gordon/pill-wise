@@ -31,6 +31,15 @@
   max-width: 70%;
 }
 
+.accountPrompt{
+  max-width: 70vw;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 1vh auto;
+  font-size: 2vh;
+}
+
 .blockbar{
   width: 100%;
   height: 10vw;
@@ -89,5 +98,44 @@
   padding: 5px;
   &:active {
     transform: scale(0.9);
+  }
+}
+
+.signinWith{
+  text-align: center;
+  margin-top: 10vw;
+}
+
+@media screen and (min-width: 600px) {
+  .blockbar{
+    width: 100%;
+    height: 7vh;
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
+  }
+
+  .accountPrompt{
+    max-width: 70vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 1vh auto;
+    font-size: 2vw;
+  }
+
+  .signinWith{
+    text-align: center;
+    margin: 3vh auto;
+  }
+
+  .container {
+    margin-top: 0;
+    margin-bottom: 0;
+    height:15vh;
+    width: 100%;
+    display: flex;
+    font-size: 7vw;
+    position: relative;
   }
 }

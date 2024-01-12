@@ -97,6 +97,18 @@ class Login extends Component {
                     </div>
                     <img className={styles.decoImg} src={doctor} alt="doctor"></img>
                 </div>
+                
+                <p className={styles.accountPrompt}>
+                        View accounts from:
+                </p>
+                <a href="https://github.com/Jeffrey-Gordon/drug_API/blob/main/accounts.json" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                >
+                    <p className={styles.accountPrompt}>
+                        github.com/Jeffrey-Gordon/drug_API/blob/main/accounts.json
+                    </p> 
+                </a>
 
                 {/* Input field for email/username */}
                 <input
@@ -128,7 +140,7 @@ class Login extends Component {
                 {/* Display error message if present */}
                 {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
 
-                <p style={{ textAlign: "center", marginTop: "10vw" }}>
+                <p className={styles.signinWith}>
                     Sign in with
                 </p>
                 {/* Container for social login buttons */}
@@ -145,11 +157,7 @@ class Login extends Component {
                 </div>
                 {/* Link to the sign-up page */}
                 <p
-                    style={{
-                        textAlign: "center",
-                        marginTop: "10vw",
-                        fontSize: "14px",
-                    }}
+                    className={styles.signinWith}
                 >
                     Don't have an account?&nbsp;
                     <Link to="/example" style={{ fontSize: "14px" }}>
