@@ -14,7 +14,7 @@ const Clock = () => {
   const drugData = location.state?.drug;
   // const options = ["Once a day", "Twice a day", "Three times a day"];
   // An array of options to define how often the medication is taken
-  const options = ["150 mg 1 capsule", "300 mg 1 capsule", "450 mg 1 capsule"];
+  const options = ["before meals", "after meals", "not oral"];
 
   // Use the useState Hook to define the required state for the component
   const [selectedOption, setSelectedOption] = useState(null);
@@ -28,7 +28,7 @@ const Clock = () => {
 
   const handleHourChange = (e) => {
     const inputValue = e.target.value;
-    if (/^[0-9]*$/.test(inputValue) && inputValue >= 0 && inputValue < 12) {
+    if (/^[0-9]*$/.test(inputValue) && inputValue >= 0 && inputValue < 24) {
       setHour(inputValue);
     }
   };
@@ -54,6 +54,12 @@ const Clock = () => {
   const history = useHistory();
 // Handle the click event of adding the alarm button
   const handleAddButtonClick = () => {
+    //Check if the content of the input box is empty
+    if (!hour || !minute || !selectedOption) {
+      // If any one is empty, display a prompt box
+      alert("Please fill in all required fields.");
+      return;
+    }
     const newItem = {
       id: drugData.ID,
       drugName: drugData.DrugName,
@@ -67,10 +73,20 @@ const Clock = () => {
       day: 4
     };
 
-    setItems([...items, newItem]);
+    // Retrieve stored strings from localStorage
+    const storedItems = localStorage.getItem('calendarItems');
+    let items = JSON.parse(storedItems);
+    // Parse the stored string into an array, if not, create an empty array
+    items = items ? items : [];
+
+    // Add newItem to the array
+    items.push(newItem);
+
+    // Convert the updated array to a string and store it back in localStorage
+    localStorage.setItem('calendarItems', JSON.stringify(items));
+
     history.push({
       pathname: '/test',
-      state: { items: [...items, newItem] }
     });
 
     // Clear the contents of the input box
@@ -112,7 +128,7 @@ const Clock = () => {
             onChange={handleMinuteChange}
             maxLength={2}
           />
-          <span onClick={handleAM}>{isAM ? "a.m" : "p.m"}</span>
+          <span onClick={handleAM} style={{display: "transparent"}}>24h</span>
         </div>
         <h3 className={styles.h3}>Num</h3>
         <div className={styles.time}>
@@ -132,7 +148,7 @@ const Clock = () => {
             onClick={handleNumIncrement}
           />
         </div>
-        <h3 className={styles.h3}>Frequency</h3>
+        <h3 className={styles.h3}>With/Without food</h3>
         <div className={`${styles.time} ${styles.fre}`}>
           <Dropdown
             options={options}

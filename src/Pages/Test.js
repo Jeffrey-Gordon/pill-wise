@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-// import Drug_1 from './image/drug-1.png';
-// import Drug_2 from './image/drug-2.png';
-// import Drug_3 from './image/drug-3.png';
-// import Drug_4 from './image/drug-4.png';
+// Importing images using require
 const Drug_1 = require("../Img/Calendar/drug-1.png");
 const Drug_2 = require("../Img/Calendar/drug-2.png");
 const Drug_3 = require("../Img/Calendar/drug-3.png");
 const Drug_4 = require("../Img/Calendar/drug-4.png");
-
 const Delete = require("../Img/Calendar/delete.png");
-const Done = require("../Img/Calendar/done.png");
+const DONE = require("../Img/Calendar/done.png");
 const NOT_DONE = require("../Img/Calendar/not-done.png");
+// Styled component for drug container
 const DrugContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -213,9 +210,13 @@ const DrugContainer = styled.div`
     }
   }
 `;
-
+// Calendar component
 const Test = (props) => {
-  const items = props.location.state?.items || [];
+  // Retrieve stored strings from localStorage
+  const storedItems = localStorage.getItem('calendarItems');
+  // Parse the stored string into an array, or use an empty array as the default
+  const items = storedItems ? JSON.parse(storedItems) : [];
+
   const [curDate, setCurDate] = useState("4");
   const [date, setDate] = useState([
     { week: "Sun", day: "1" },
@@ -243,7 +244,7 @@ const Test = (props) => {
   };
 
   const [isManage, setIsManage] = useState(false);
-
+  const [isDone, setIsDone] = useState(false);
   const allData = {
     4: items.map((item) => ({
       item: [
@@ -254,6 +255,7 @@ const Test = (props) => {
           id: item.id,
           hour: item.hour,
           minute: item.minute,
+          image: item.image
         },
       ],
     })),
@@ -263,9 +265,12 @@ const Test = (props) => {
     
   ]);
 
+  
   useEffect(() => {
     setDetail(allData[curDate] ?? []);
   }, [curDate]);
+// order the information of the drug
+
 
   const handleDelete = (id) => {
     let newDetail = detail.filter((timeSlot) => {
@@ -274,7 +279,9 @@ const Test = (props) => {
     });
     setDetail(newDetail);
   };
-
+  const handleDone = () => {
+    setIsDone(!isDone);
+}
   return (
     <DrugContainer>
       <div className="title">Calendar</div>
@@ -312,6 +319,7 @@ const Test = (props) => {
             Cancel
           </span>
         )}
+        
       </div>
       <div className="detail">
         <div className="list">
@@ -325,34 +333,34 @@ const Test = (props) => {
                 </div>
                 <div className="detail-list">
                   {item.map(
-                    ({ drugName, hour, minute, done, capsule, id }, index) => {
+                    ({ drugName, hour, minute, done, capsule, id, image }, index) => {
                       return (
                         <div
                           className="detail-content"
                           key={`${id}-${index}-${index}`}
                         >
                           <div className="detail">
-                            <div
+                          <img
                               className="picture"
-                              style={{
-                                backgroundImage: `url('${picObj[id % 4]}')`,
-                              }}
-                            ></div>
+                              src={image}
+                              alt={drugName}
+                            ></img>
                             <div className="desc">
                               <div className="drugName">{drugName}</div>
                               <div className="capsule">{capsule}</div>
                               <div className="time">{hour + ":" + minute}</div>
                             </div>
                             <div
-                              className="done"
-                              style={{
-                                backgroundImage: `url('${
-                                  done ? Done : NOT_DONE
-                                }')`,
-                              }}
-                            ></div>
+          className="done"
+          onClick={handleDone}
+          style={{
+            backgroundImage: `url('${isDone ? NOT_DONE : DONE}')`,
+          }}
+        ></div>
                           </div>
+                          {/* Render the delete function */}
                           <div
+                          
                             className="delete"
                             onClick={() => {
                               handleDelete(id);

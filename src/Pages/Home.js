@@ -20,6 +20,17 @@ class Home extends Component {
         };
     }
 
+    reminder(){
+        // Retrieve stored strings from localStorage
+        const storedItems = localStorage.getItem('calendarItems');
+        // Parse the stored string into an array, or use an empty array as the default
+        const items = storedItems ? JSON.parse(storedItems) : [];
+
+        return items;
+    }
+
+    
+
     // Check username in localStorage andfetch drugs data from an external JSON file when the component mounts
     componentDidMount() {
         const loggedInUser = localStorage.getItem('loggedInUser');
@@ -36,6 +47,14 @@ class Home extends Component {
                 console.error("Error fetching data:", error);
                 this.setState({ loading: false });
             });
+    }
+
+    logOut = () =>{
+        localStorage.setItem('loggedInUser', "");
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        this.setState({ username: loggedInUser });
+
+        localStorage.setItem('calendarItems', null);
     }
 
     // Event handler for searching drugs based on the entered term
@@ -61,13 +80,27 @@ class Home extends Component {
         // Destructure props and state for easier access
         const { username } = this.state;
         const { searchTerm, filteredDrugs, popularSearches, activeButtonIndex, loading } = this.state;
-
+        const reminderData = this.reminder() && this.reminder()[0];
         return (
             <div className={styles.maincontainer}>
                 <div className={styles.buttoncontainer} style={{ marginTop: "10%" }}>
                     {/* Conditional rendering based on the existence of a username */}
                     {username ? (
-                        <button><Link to="/test"><img src={calendar} alt="calendar"></img></Link></button>
+                        <>
+                            <button onClick={this.logOut}>
+                                {/* Styled login button */}
+                                <span
+                                    style={{
+                                        color: "#007cee",
+                                        backgroundColor: "#ddd",
+                                        borderRadius: "10px",
+                                    }}
+                                >
+                                    <i>&nbsp;Logout&nbsp;&nbsp;</i>
+                                </span>
+                            </button>
+                            <button><Link to="/test"><img src={calendar} alt="calendar"></img></Link></button>
+                        </>
                     ) : (
                         <Link to="/login">
                             <button>
@@ -98,7 +131,13 @@ class Home extends Component {
 
                 {/* Placeholder block for reminder logic */}
                 <div className={`${styles.blockbar} ${styles.input}`} style={{marginBottom: "1vh", borderRadius: "10px"}}>
-                    <p style={{fontSize: "2vh"}}>Write your reminder logic here</p>
+                <p style={{fontSize: "4vw", padding: "2vw"}}>
+                    reminder: {reminderData ? reminderData.drugName : "drug"},&nbsp;
+                    {reminderData ? reminderData.hour : "hh"}
+                    :
+                    {reminderData ? reminderData.minute : "mm"} 
+                </p>
+
                 </div>
 
                 {/* Search input field */}
