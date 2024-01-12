@@ -211,11 +211,12 @@ const DrugContainer = styled.div`
   }
 `;
 // Calendar component
-const Test = (props) => {
-  // Retrieve stored strings from localStorage
-  const storedItems = localStorage.getItem('calendarItems');
-  // Parse the stored string into an array, or use an empty array as the default
-  const items = storedItems ? JSON.parse(storedItems) : [];
+const Calendar = (props) => {
+    // Retrieve stored strings from localStorage
+    const storedItems = localStorage.getItem('calendarItems');
+    let items = JSON.parse(storedItems);
+    // Parse the stored string into an array, if not, create an empty array
+    items = items ? items : [];
 
   const [curDate, setCurDate] = useState("4");
   const [date, setDate] = useState([
@@ -396,4 +397,4 @@ const Test = (props) => {
   );
 };
 
-export default Test;
+export default Calendar;

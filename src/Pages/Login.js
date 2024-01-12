@@ -78,6 +78,19 @@ class Login extends Component {
 
         return (
             <div className={styles.maincontainer}>
+                <Link to="/" style={{fontSize: "2vh", textDecoration: "none"}}>
+                    <p></p>
+                    <span
+                        style={{
+                            color: "#007cee",
+                            backgroundColor: "#ddd",
+                            borderRadius: "10px",
+                        }}
+                    >
+                        <i>&nbsp;&lt;Back&nbsp;&nbsp;</i>
+                    </span>
+                </Link>
+
                 <div className={styles.container}>
                     <div className={styles.titles}>
                         <h2>Login to your Account</h2>

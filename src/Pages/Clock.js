@@ -53,19 +53,25 @@ const Clock = () => {
   const history = useHistory();
 // Handle the click event of adding the alarm button
   const handleAddButtonClick = () => {
-    //Check if the content of the input box is empty
+    // Check if the content of the input box is empty or if hour/minute is one digit
     if (!hour || !minute || !selectedOption) {
-      // If any one is empty, display a prompt box
-      alert("Please fill in all required fields.");
+      // If any of the conditions is met, display a prompt box
+      alert("Please fill in all required fields");
       return;
     }
+
+    // Function to add a leading zero if needed
+    const addLeadingZero = (value) => {
+      return value < 10 ? "0" + value : value;
+    };
+
     let d = new Date();
     const newItem = {
       id: d.getTime(),
       drugName: drugData.DrugName,
       image: drugData.Image,
-      hour: hour,
-      minute: minute,
+      hour: addLeadingZero(hour), // Add leading zero to hour if needed
+      minute: addLeadingZero(minute), // Add leading zero to minute if needed
       num: num,
       isAM: isAM ? "a.m" : "p.m",
       capsule: selectedOption,
@@ -85,7 +91,7 @@ const Clock = () => {
     localStorage.setItem('calendarItems', JSON.stringify(items));
 
     history.push({
-      pathname: '/test',
+      pathname: '/calendar',
     });
 
     // Clear the contents of the input box

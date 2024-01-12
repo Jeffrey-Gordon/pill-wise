@@ -99,7 +99,7 @@ class Home extends Component {
                                     <i>&nbsp;Logout&nbsp;&nbsp;</i>
                                 </span>
                             </button>
-                            <button><Link to="/test"><img src={calendar} alt="calendar"></img></Link></button>
+                            <button><Link to="/calendar"><img src={calendar} alt="calendar"></img></Link></button>
                         </>
                     ) : (
                         <Link to="/login">
