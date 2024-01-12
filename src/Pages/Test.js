@@ -244,15 +244,14 @@ const Test = (props) => {
   };
 
   const [isManage, setIsManage] = useState(false);
-  const [isDone, setIsDone] = useState(false);
   const allData = {
     4: items.map((item) => ({
       item: [
         {
-          drugName: item.drugName,
-          done: item.done,
-          capsule: item.capsule,
           id: item.id,
+          drugName: item.drugName,
+          done: false,
+          capsule: item.capsule,
           hour: item.hour,
           minute: item.minute,
           image: item.image
@@ -279,9 +278,19 @@ const Test = (props) => {
     });
     setDetail(newDetail);
   };
-  const handleDone = () => {
-    setIsDone(!isDone);
-}
+  const handleDone = (id) => {
+    // Switching done status on specific drugs
+    let newDetail = detail.map((timeSlot) => {
+      timeSlot.item = timeSlot.item.map((drug) => {
+        if (drug.id === id) {
+          return { ...drug, done: !drug.done };
+        }
+        return drug;
+      });
+      return timeSlot;
+    });
+    setDetail(newDetail);
+  }
   return (
     <DrugContainer>
       <div className="title">Calendar</div>
@@ -351,12 +360,12 @@ const Test = (props) => {
                               <div className="time">{hour + ":" + minute}</div>
                             </div>
                             <div
-          className="done"
-          onClick={handleDone}
-          style={{
-            backgroundImage: `url('${isDone ? NOT_DONE : DONE}')`,
-          }}
-        ></div>
+                              className="done"
+                              onClick={() => handleDone(id)}
+                              style={{
+                                backgroundImage: `url('${done ? NOT_DONE : DONE}')`,
+                              }}
+                            ></div>
                           </div>
                           {/* Render the delete function */}
                           <div

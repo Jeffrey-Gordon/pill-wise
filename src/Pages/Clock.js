@@ -21,7 +21,6 @@ const Clock = () => {
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [num, setNum] = useState(3);
-  const [done, setDone] = useState(false);
   // const [frequency, setFrequency] = useState(options[0]);
   const [items, setItems] = useState([]);
   const [isAM, setIsAM] = useState(true);
@@ -60,14 +59,14 @@ const Clock = () => {
       alert("Please fill in all required fields.");
       return;
     }
+    let d = new Date();
     const newItem = {
-      id: drugData.ID,
+      id: d.getTime(),
       drugName: drugData.DrugName,
       image: drugData.Image,
       hour: hour,
       minute: minute,
       num: num,
-      done: done,
       isAM: isAM ? "a.m" : "p.m",
       capsule: selectedOption,
       day: 4
