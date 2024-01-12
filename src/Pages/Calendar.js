@@ -212,11 +212,21 @@ const DrugContainer = styled.div`
 `;
 // Calendar component
 const Calendar = (props) => {
-    // Retrieve stored strings from localStorage
-    const storedItems = localStorage.getItem('calendarItems');
-    let items = JSON.parse(storedItems);
-    // Parse the stored string into an array, if not, create an empty array
-    items = items ? items : [];
+  // Retrieve stored strings from localStorage
+  const storedItems = localStorage.getItem('calendarItems');
+  let items = JSON.parse(storedItems);
+  // Parse the stored string into an array, if not, create an empty array
+  items = items ? items : [];
+  // Sort items in chronological order
+  items.sort((a, b) => {
+    // Convert time string to minutes for comparison
+    const timeA = parseInt(a.hour) * 60 + parseInt(a.minute);
+    const timeB = parseInt(b.hour) * 60 + parseInt(b.minute);
+    return timeA - timeB;
+  });
+
+  // Update sorted items to locally stored calendarItems
+  localStorage.setItem('calendarItems', JSON.stringify(items));
 
   const [curDate, setCurDate] = useState("4");
   const [date, setDate] = useState([

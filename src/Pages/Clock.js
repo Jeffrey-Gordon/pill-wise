@@ -51,8 +51,19 @@ const Clock = () => {
   }
 
   const history = useHistory();
-// Handle the click event of adding the alarm button
+  // Handle the click event of adding the alarm button
   const handleAddButtonClick = () => {
+      // Check if the user is logged in
+      const loggedInUser = localStorage.getItem('loggedInUser');
+
+    if (!loggedInUser) {
+      // If the user is not logged in, trigger the login operation
+      alert("Please log in to add the alarm.");
+      // This can trigger the display of the login interface or the logic of redirecting to the login page
+      history.push('/login');
+      return;
+    }
+
     // Check if the content of the input box is empty or if hour/minute is one digit
     if (!hour || !minute || !selectedOption) {
       // If any of the conditions is met, display a prompt box
