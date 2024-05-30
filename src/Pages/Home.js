@@ -16,6 +16,7 @@ class Home extends Component {
             popularSearches: ["fever", "pain", "anxiety", "allergy", "inflammation", "high blood pressure"],
             activeButtonIndex: null, // To track the active button index
             loading: true, // Initial loading state
+            error:"",
             username: null,
         };
     }
@@ -42,9 +43,10 @@ class Home extends Component {
 
         fetch('https://raw.githubusercontent.com/Jeffrey-Gordon/drug_API/main/drugs.json')
             .then(response => response.json())
-            .then(data => this.setState({ drugs: data, filteredDrugs: data, loading: false }))
+            .then(data => this.setState({ drugs: data, filteredDrugs: data, loading: false, error: ""}))
             .catch(error => {
                 console.error("Error fetching data:", error);
+                this.setState({ error: "Error fetching data" });
                 this.setState({ loading: false });
             });
     }
@@ -131,7 +133,7 @@ class Home extends Component {
 
                 {/* Placeholder block for reminder logic */}
                 <div className={`${styles.blockbar} ${styles.input}`} style={{marginBottom: "1vh", borderRadius: "10px"}}>
-                <p style={{fontSize: "4vw", padding: "2vw"}}>
+                <p className={styles.reminder}>
                     reminder: {reminderData ? reminderData.drugName : "drug"},&nbsp;
                     {reminderData ? reminderData.hour : "hh"}
                     :
@@ -169,6 +171,7 @@ class Home extends Component {
 
                 {/* Render DrugLinks component with filtered drugs */}
                 {loading ? "Loading data..." : <DrugLinks drugs={filteredDrugs} />}
+                {this.state.error && <p style={{ textAlign: "center", color: "red" }}>{this.state.error}</p>}
             </div>
         );
     }
